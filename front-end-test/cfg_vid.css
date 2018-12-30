@@ -1,0 +1,140 @@
+* {
+    margin: 0 0 0 0;
+    padding: 0;
+}
+#container {
+    margin: 0 auto;
+	margin-top: 10px;
+    width: 778px;
+    text-align: left;
+    position: relative;
+    /*min-height: 100%;  For Modern Browsers */
+    /*height: auto !important;  For Modern Browsers */
+    /*height: 100%;  For IE */ 
+}
+#head {
+    width:778px; 
+}
+
+#banner {
+    width:778px; 
+    height:127px; 
+    background-image:url(banner.png); 
+    background-repeat:no-repeat;
+}
+
+#main-content {
+    margin-top: 20px;
+}
+
+.bottom_line {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	color: white;
+	text-align: center;
+	background-color:#3203c1; 
+}
+
+#bottomx {
+    width: 100%;
+    position: absolute;
+    bottom: 0 !important;
+    bottom: -1px; /* For Certain IE widths */
+    height: 1px;
+}
+
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:active { text-decoration: none; }
+a:hover { text-decoration:none; }
+
+.cfg_cat_ul {
+    list-style: none;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.cat_ul {
+    margin: 10px;
+    list-style: none;
+}
+
+.cat_li {
+    margin: 10px;
+}
+
+.cat_li_name {
+    display: block;
+    width: 150px;
+    float: left;
+}
+
+.cat_name {
+    background-color: #e8e6e6;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 10px;
+}
+
+.cat_name h1 {
+    font-size: 20px;
+}
+
+.cat_li_text, .cat_li_select {
+    width: 200px;
+}
+
+.cat_li_rad input[type="radio"] { 
+    margin-right: 8px; 
+}
+
+.cat_li_rad {
+    margin-right: 50px;
+}
+
+.cat_li_about {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+html, body {
+    /*height: 100%;  Required */
+    font-size: 12px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    /*min-height:101%;*/
+    background-color:#fff; /* style unifys in case window color changes */
+}
+
+p {
+    line-height: 20px;
+}
+
+.username,.password,.validatecode {
+    width:120px;
+    height:18px;
+    border:1px solid #7F9DB7;
+    font-size: 12px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    vertical-align:middle;
+    text-align:left;
+}
+
+.cat_btn {
+    height:26px;
+    width:100px;
+    vertical-align:middle;
+    text-align:center;
+    font-size: 12px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    margin-left: 100px;
+}
+
+.cat_btn:hover {
+    font-weight: bold;
+    cursor: pointer;
+}

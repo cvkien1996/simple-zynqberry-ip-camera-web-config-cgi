@@ -1,0 +1,200 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>ZB Camera - Setting</title>
+        <LINK REL="stylesheet" HREF="cfg_vid.css" TYPE="text/css" />
+        <LINK REL="stylesheet" HREF="styleen.css" TYPE="text/css" />
+    </head>
+
+    <body>
+        <div id="container">
+            <div id="main-head">
+                <div id="banner"></div>
+            </div>
+
+            <div id="main-content">
+                <div>
+                    <form target="_self" method="POST">
+                        <ul class="cfg_cat_ul">
+                            <li class="cfg_cat_li">
+                                <div>
+                                    <div class="cat_name"><h1>Camera</h1></div>
+                                    <div class="cat_values">
+                                        <ul class="cat_ul">
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">Resolution</span>
+                                                    <select id="cam_resolution" class="cat_li_select">
+                                                        <option>1280x720</option>
+                                                        <option>640x480</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">Frame rate</span>
+                                                    <select id="cam_fps" class="cat_li_select">
+                                                        <option>30 fps</option>
+                                                        <option>20 fps</option>
+                                                        <option>15 fps</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">Bit rate</span>
+                                                    <select id="cam_bitrate" class="cat_li_select">
+                                                        <option>400 kbit/s</option>
+                                                        <option>750 kbit/s</option>
+                                                        <option>1 Mbit/s</option>
+                                                        <option>2.5 Mbit/s</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="cfg_cat_li">
+                                <div>
+                                    <div class="cat_name"><h1>Network</h1></div>
+                                    <div class="cat_values">
+                                        <ul class="cat_ul">
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">Mode</span>
+                                                    <span class="cat_li_rad"><input id="net_static" type="radio" name="rad"/><label for="net_static">Static</label></span>
+                                                    <span class="cat_li_rad"><input id="net_dhcp" type="radio" name="rad"/><label for="net_dhcp">DHCP</label></span>
+                                                </div>
+                                            </li>
+
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">IP address</span>
+                                                    <input type="text" id="net_ip" class="cat_li_text" autocomplete="off" >
+                                                </div>
+                                            </li>
+
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">Subnet mask</span>
+                                                    <input type="text" id="net_subnet" class="cat_li_text" autocomplete="off" >
+                                                </div>
+                                            </li>
+
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">Default gateway</span>
+                                                    <input type="text" id ="net_gateway" class="cat_li_text" autocomplete="off" >
+                                                </div>
+                                            </li>
+
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">MAC address</span>
+                                                    <input type="text" id="net_mac" class="cat_li_text" autocomplete="off" >
+                                                </div>
+                                            </li>
+
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">Port</span>
+                                                    <input type="text" id="net_port" class="cat_li_text" autocomplete="off" >
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="cfg_cat_li">
+                                <div>
+                                    <div class="cat_name"><h1>Date & time</h1></div>
+                                    <div class="cat_values">
+                                        <ul class="cat_ul">
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">Date format</span>
+                                                    <input type="text" id="date_format" class="cat_li_text" autocomplete="off" >
+                                                </div>
+                                            </li>
+
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">Timezone</span>
+                                                    <input type="text" id="date_timezone" class="cat_li_text" autocomplete="off" >
+                                                </div>
+                                            </li>
+
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">Current date</span>
+                                                    <input type="text" id="date_current" class="cat_li_text" autocomplete="off" >
+                                                </div>
+                                            </li>
+
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">Current time</span>
+                                                    <input type="text" id="date_time" class="cat_li_text" autocomplete="off" >
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="cfg_cat_li">
+                                <div>
+                                    <div class="cat_name"><h1>User</h1></div>
+                                    <div class="cat_values">
+                                        <ul class="cat_ul">
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">Username</span>
+                                                    <input type="text" id="user_name" class="cat_li_text" autocomplete="off" >
+                                                </div>
+                                            </li>
+
+                                            <li class="cat_li">
+                                                <div>
+                                                    <span class="cat_li_name">Password</span>
+                                                    <input type="text" id="user_pw" class="cat_li_text" autocomplete="off" >
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="cfg_cat_li">
+                                <div>
+                                    <div class="cat_name"><h1>About</h1></div>
+                                    <div class="cat_li_about"><p>ZB Camera v1.0<br>Contact: 14520437@gm.uit.edu.vn</p></div>
+                                </div>
+                            </li>
+
+                            <li class="cfg_cat_li">
+                                <div style="margin-top:20px;margin-bottom:30px;">
+                                    <input class="cat_btn cat_save" type="submit" id="action_save" value="Save" onclick="dosubmit()">
+                                    <input class="cat_btn cat_cancel" type="submit" id="action_cancel" value="Cancel" onclick="dosubmit()">
+                                    <input class="cat_btn cat_logout" type="submit" id="action_logout" value="Logout" onclick="dosubmit()">
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+
+            <div id="main-bottom">
+                <div class="bottom_line">
+                        <h5 style="text-align:center;color:white">Chung Vĩnh Kiện - 14520437@gm.uit.edu.vn</h5>
+                </div>
+                <div id="bottomx"></div>
+            </div>
+        </div>
+    </body>
+</html>
