@@ -10,6 +10,9 @@ htmlHeader (char * title);
 void
 htmlCssAdder (char * csslink);
 
+void
+htmlScriptAdder (char * scriptlink);
+
 void 
 htmlBody ();
 

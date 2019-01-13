@@ -138,3 +138,7 @@ p {
     font-weight: bold;
     cursor: pointer;
 }
+
+input[type=time]{
+    font-family: "Times New Roman", Times, serif;
+}

@@ -7,14 +7,6 @@
 <LINK REL="stylesheet" HREF="login.css" TYPE="text/css" />
 <LINK REL="stylesheet" HREF="styleen.css" TYPE="text/css" />
 
-<style>
-.notecontent{
-	font-size: 12px;
-	font-family:"Times New Roman", Verdana, Geneva, Arial, Helvetica, sans-serif;
-	color:#000000;
-}
-</style>
-
 <script>
 function focusUsername()
 {
@@ -24,88 +16,71 @@ function focusUsername()
 	}
 }
 
-/* function dosubmit()
+function doLogin()
 {
-	if (document.getElementById("Frm_Username").value == "")
-	{
-		document.getElementById("errmsg").innerHTML = "Username cannot be empty.";
-		document.getElementById("myLayer").style.visibility = "visible" ;
-		return;
+	var username = document.getElementById("Frm_Username").value;
+	var password = document.getElementById("Frm_Password").value;
+	
+	document.getElementById("error_log").innerHTML = "";
+	
+	if (username == "" || password == ""){
+		document.getElementById("error_log").innerHTML = "Incorrect username or password";
+		return false;
 	}
-	else
-	{
-		subpageSubmit();
+	
+	if (username != "zberry" && password != "123"){
+		document.getElementById("error_log").innerHTML = "Incorrect username or password";
+		return false;
 	}
+	
+	return true;
 }
-
-function subpageSubmit()
-{
-	document.getElementById("LoginId").disabled = true;
-
-	document.fLogin.submit();
-} */
 
 </script>
 </head>
 
 <body onload = "focusUsername();">
 	<div id="container">
-		
-		<!--head-->
 		<div id="head">
-			<!-- <div class="type"><font id="">ZB Camera</font></div> -->
 			<div id="banner"></div>
 		</div>
-		<!--head-->
-		
-		<!--content-->
 		<div id="loginArea">
-			<form name="fLogin" id="fLogin" method="post" onsubmit="return false;" action="">
-				<!-- <input type="hidden" name="_lang" id="_lang" value="" disabled>
-				<input type="hidden" name="frashnum" id="frashnum" value=""> -->
-				<input type="hidden" name="action" id="action" value="login">
-				<!-- <input type="hidden" name="Frm_Logintoken" id="Frm_Logintoken" value=""> -->
-
-				<div class="login_frame">
-					<ul class="login_title">
-						<li class="login_title_left"></li>
-						<li class="login_title_center">ZB Camera</li>
-
-						<li class="login_title_right"></li>
+			<input type="hidden" name="action" id="action" value="login">
+			<div class="login_frame">
+				<ul class="login_title">
+					<li class="login_title_left"></li>
+					<li class="login_title_center">ZB Camera</li>
+					<li class="login_title_right"></li>
+				</ul>
+				<div class="content login_content">
+					<ul class="login_blank"></ul>
+					<ul class="login_ul_1">
+						<li class="login_li_1"><span>Username</span></li>
+						<li class="login_li_2">
+							<input type="text" class="username" name="login_username" id="Frm_Username" autocomplete="off" >
+						</li>
 					</ul>
-
-					<div class="content login_content">
-						<ul class="login_blank"></ul>
-						<ul class="login_ul_1">
-							<li class="login_li_1"><span>Username</span></li>
-							<li class="login_li_2">
-								<input type="text" class="username" name="Username" id="Frm_Username" autocomplete="off" >
-							</li>
-						</ul>
-						<ul class="login_blank"></ul>
-						<ul class="login_ul_1">
-							<li class="login_li_1"><span>Password</span></li>
-							<li class="login_li_2">
-								<input type="password" class="password" name="Password" id="Frm_Password" autocomplete="off">
-							</li>
-							<li class="login_li_3">
-								<input class="login" type="submit" id="LoginId" value="Login" onclick="dosubmit()">
-							</li>
-						</ul>
-						<ul class="login_blank"></ul>
-					</div>
+					<ul class="login_blank"></ul>
+					<ul class="login_ul_1">
+						<li class="login_li_1"><span>Password</span></li>
+						<li class="login_li_2">
+							<input type="text" class="password" name="login_password" id="Frm_Password" autocomplete="off">
+						</li>
+						<li class="login_li_3">
+							<a href="ZB Camera - Setting.html">
+								<input class="login" type="button" name="login_button" id="LoginId" value="Login" onclick="return doLogin();">
+							</a>
+						</li>
+					</ul>
+					<ul class="login_blank"></ul>
 				</div>
-			</form>
-		</div>
-		<!--content-->
-		
-		<!--bottom-->
-			<div class="bottom_line">
-				<h5 style="text-align:center;color:white">Chung Vĩnh Kiện - 14520437@gm.uit.edu.vn</h5>
 			</div>
-			<div id="bottomx"></div>
-		<!--bottom-->
-		
+			<div id="error_log"></div>
+		</div>
+		<div class="bottom_line">
+			<h5 style="text-align:center;color:white">Chung Vĩnh Kiện - 14520437@gm.uit.edu.vn</h5>
+		</div>
+		<div id="bottomx"></div>
 	</div>
 </body>
 </html>

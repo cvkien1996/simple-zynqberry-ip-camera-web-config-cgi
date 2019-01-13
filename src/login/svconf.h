@@ -9,7 +9,7 @@
 #define CONFIG_NOTE        "#"
 
 #define DEFAULT_STREAM_PATH     "/main"
-#define LOGIN_FILENAME          "login.cgi"
+#define MAIN_CFG_FILENAME       "main.cgi"
 
 typedef struct
 {

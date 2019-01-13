@@ -21,11 +21,49 @@
 
 /* Private macros --------------------------------------------------------------------------------*/
 
+
+
 /* Private data types ----------------------------------------------------------------------------*/
 
 /* Private variables -----------------------------------------------------------------------------*/
 
+static const char * const g_tz_list[] = {
+    "(GMT -12:00) Eniwetok, Kwajalein",
+    "(GMT -11:00) Midway Island, Samoa",
+    "(GMT -10:00) Hawaii",
+    "(GMT -9:00) Alaska",
+    "(GMT -8:00) Pacific Time (US & Canada)",
+    "(GMT -7:00) Mountain Time (US & Canada)",
+    "(GMT -6:00) Central Time (US & Canada), Mexico City",
+    "(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima",
+    "(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz",
+    "(GMT -3:30) Newfoundland",
+    "(GMT -3:00) Brazil, Buenos Aires, Georgetown",
+    "(GMT -2:00) Mid-Atlantic",
+    "(GMT -1:00 hour) Azores, Cape Verde Islands",
+    "(GMT) Western Europe Time, London, Lisbon, Casablanca",
+    "(GMT +1:00 hour) Brussels, Copenhagen, Madrid, Paris",
+    "(GMT +2:00) Kaliningrad, South Africa",
+    "(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg",
+    "(GMT +3:30) Tehran",
+    "(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi",
+    "(GMT +4:30) Kabul",
+    "(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent",
+    "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
+    "(GMT +5:45) Kathmandu",
+    "(GMT +6:00) Almaty, Dhaka, Colombo",
+    "(GMT +7:00) Bangkok, Hanoi, Jakarta",
+    "(GMT +8:00) Beijing, Perth, Singapore, Hong Kong",
+    "(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk",
+    "(GMT +9:30) Adelaide, Darwin",
+    "(GMT +10:00) Eastern Australia, Guam, Vladivostok",
+    "(GMT +11:00) Magadan, Solomon Islands, New Caledonia",
+    "(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka"    
+};
+
 /* Private function prototypes -------------------------------------------------------------------*/
+static void
+select_timezone (char * selected);
 
 static void
 resolution_to_wh (char * resolution, int res_len, char * width, char * height);
@@ -165,18 +203,26 @@ svconf_save_config (char ** vars, char form_method)
                 break;
 
                 case 24:
-                    memcpy(main_conf.date_current, vars[varvalue], strlen(vars[varvalue]));
+                    memcpy(main_conf.date_current_1, vars[varvalue], strlen(vars[varvalue]));
                 break;
 
                 case 26:
-                    memcpy(main_conf.date_time, vars[varvalue], strlen(vars[varvalue]));
+                    memcpy(main_conf.date_current_2, vars[varvalue], strlen(vars[varvalue]));
                 break;
 
                 case 28:
-                    memcpy(main_conf.username, vars[varvalue], strlen(vars[varvalue]));
+                    memcpy(main_conf.date_current_3, vars[varvalue], strlen(vars[varvalue]));
                 break;
 
                 case 30:
+                    memcpy(main_conf.date_time, vars[varvalue], strlen(vars[varvalue]));
+                break;
+
+                case 32:
+                    memcpy(main_conf.username, vars[varvalue], strlen(vars[varvalue]));
+                break;
+
+                case 34:
                     memcpy(main_conf.password, vars[varvalue], strlen(vars[varvalue]));
                 break;
 
@@ -218,7 +264,7 @@ svconf_load_config ()
             </div>  \
             <div id=\"main-content\">   \
                 <div>   \
-                    <form target=\"_self\" method=\"POST\"> \
+                    <form name=\"CONFIG_FORM\" target=\"_self\" method=\"POST\"> \
                     <ul class=\"cfg_cat_ul\">");
 
                 printf("<li class=\"cfg_cat_li\">   \
@@ -254,20 +300,12 @@ svconf_load_config ()
                                                 if (NULL != strstr(ret.cam_fps, "30"))
                                                 {
                                                 printf("<option selected=\"selected\">30 fps</option>     \
-                                                        <option>20 fps</option>     \
-                                                        <option>15 fps</option>");
-                                                }
-                                                else if (NULL != strstr(ret.cam_fps, "20"))
-                                                {
-                                                printf("<option>30 fps</option>     \
-                                                        <option selected=\"selected\">20 fps</option>     \
-                                                        <option>15 fps</option>");
+                                                        <option>20 fps</option>");
                                                 }
                                                 else
                                                 {
                                                 printf("<option>30 fps</option>     \
-                                                        <option>20 fps</option>     \
-                                                        <option selected=\"selected\">15 fps</option>");
+                                                        <option selected=\"selected\">20 fps</option>");
                                                 }
 
                                                 printf("</select>   \
@@ -367,7 +405,7 @@ svconf_load_config ()
                                             <div>   \
                                                 <span class=\"cat_li_name\">MAC address</span>");
 
-                                        printf("<input type=\"text\" name=\"net_mac\" class=\"cat_li_text\" autocomplete=\"off\" value=\"%s\">", ret.net_mac);
+                                        printf("<input type=\"text\" name=\"net_mac\" class=\"cat_li_text\" autocomplete=\"off\" value=\"%s\" readonly>", ret.net_mac);
 
                                         printf("</div>  \
                                         </li>   \
@@ -401,15 +439,38 @@ svconf_load_config ()
                                             <div>   \
                                                 <span class=\"cat_li_name\">Date format</span>");
 
-                                        printf("<input type=\"text\" name=\"date_format\" class=\"cat_li_text\" autocomplete=\"off\" value=\"%s\">", ret.date_format);
+                                                printf("<select name=\"date_format\" class=\"cat_li_select\" id=\"id_dateFormat\">");
+
+                                                if (NULL != strstr(ret.date_format, "dd/mm/yyyy")) 
+                                                {
+                                                printf("<option selected=\"selected\">dd/mm/yyyy</option>   \
+                                                        <option>mm/dd/yyyy</option>    \
+                                                        <option>yyyy/mm/dd</option>");
+                                                }
+                                                else if (NULL != strstr(ret.date_format, "mm/dd/yyyy")) 
+                                                {
+                                                printf("<option>dd/mm/yyyy</option>   \
+                                                        <option selected=\"selected\">mm/dd/yyyy</option> \
+                                                        <option>yyyy/mm/dd</option>");
+                                                }
+                                                else  
+                                                {
+                                                printf("<option>dd/mm/yyyy</option>   \
+                                                        <option>mm/dd/yyyy</option> \
+                                                        <option selected=\"selected\">yyyy/mm/dd</option>");
+                                                }
+
+                                                printf("</select>");
+
 
                                         printf("</div>  \
                                         </li>   \
                                         <li class=\"cat_li\">   \
                                             <div>   \
                                                 <span class=\"cat_li_name\">Timezone</span>");
-
-                                        printf("<input type=\"text\" name=\"date_timezone\" class=\"cat_li_text\" autocomplete=\"off\" value=\"%s\">", ret.date_timezone);
+                                        printf("<select name=\"date_timezone\" class=\"cat_li_select\">");
+                                        select_timezone(ret.date_timezone);
+                                        printf("</select>");
 
                                         printf("</div>  \
                                         </li>   \
@@ -417,7 +478,9 @@ svconf_load_config ()
                                             <div>   \
                                                 <span class=\"cat_li_name\">Current date</span>");
 
-                                        printf("<input type=\"text\" name=\"date_current\" class=\"cat_li_text\" autocomplete=\"off\" value=\"%s\">", ret.date_current);
+                                        printf("<input style=\"width:65px;\" type=\"text\" name=\"date_current_1\" class=\"cat_li_text\" autocomplete=\"off\" value=\"%s\">", ret.date_current_1);
+                                        printf("<input style=\"width:65px;\" type=\"text\" name=\"date_current_2\" class=\"cat_li_text\" autocomplete=\"off\" value=\"%s\">", ret.date_current_2);
+                                        printf("<input style=\"width:65px;\" type=\"text\" name=\"date_current_3\" class=\"cat_li_text\" autocomplete=\"off\" value=\"%s\">", ret.date_current_3);
 
                                         printf("</div>  \
                                         </li>   \
@@ -425,7 +488,7 @@ svconf_load_config ()
                                             <div>   \
                                                 <span class=\"cat_li_name\">Current time</span>");
 
-                                        printf("<input type=\"text\" name=\"date_time\" class=\"cat_li_text\" autocomplete=\"off\" value=\"%s\">", ret.date_time);
+                                        printf("<input type=\"time\" id=\"id_curTime\" name=\"date_time\" class=\"cat_li_text\" step=\"any\" value=\"%s\">", ret.date_time);
 
                                         printf("</div>  \
                                         </li>   \
@@ -451,7 +514,7 @@ svconf_load_config ()
                                             <div>   \
                                                 <span class=\"cat_li_name\">Password</span>");
 
-                                        printf("<input type=\"text\" name=\"user_pw\" class=\"cat_li_text\" autocomplete=\"off\" value=\"%s\">", ret.password);
+                                        printf("<input id=\"id_passWord\" type=\"text\" name=\"user_pw\" class=\"cat_li_text\" autocomplete=\"off\" value=\"%s\">", ret.password);
 
                                         printf("</div>  \
                                         </li>   \
@@ -467,12 +530,13 @@ svconf_load_config ()
                             </div>  \
                         </li>   \
                         <li class=\"cfg_cat_li\">   \
+                            <div style=\"color:red;text-align:center;\" id=\"error_log\"></div> \
                             <div style=\"margin-top:20px;margin-bottom:30px;\"> \
-                                <input class=\"cat_btn cat_save\" type=\"submit\" name=\"action_submit\" value=\"Save\" onclick=\"dosubmit()\"> \
-                                <input class=\"cat_btn cat_cancel\" type=\"submit\" name=\"action_submit\" value=\"Cancel\" onclick=\"dosubmit()\"> \
-                                <input class=\"cat_btn cat_logout\" type=\"submit\" name=\"action_submit\" value=\"Logout\" onclick=\"dosubmit()\"> \
+                                <input class=\"cat_btn cat_save\" type=\"submit\" name=\"action_submit\" value=\"Save\" onclick=\"return doSave()\"> \
+                                <input class=\"cat_btn cat_cancel\" type=\"submit\" name=\"action_submit\" value=\"Cancel\" onclick=\"return doCancel()\"> \
+                                <a href=\"%s\"><input class=\"cat_btn cat_logout\" type=\"button\" name=\"action_logout\" value=\"Logout\" onclick=\"return doLogout()\"></a> \
                             </div>  \
-                        </li>");
+                        </li>", LOGIN_FILENAME);
 
             printf("</ul>   \
                     </form> \
@@ -485,6 +549,35 @@ svconf_load_config ()
                 <div id=\"bottomx\"></div>  \
             </div>  \
         </div>");
+    }
+
+    {
+        printf("<script>    \
+        var preFormat, curFormat;   \
+        document.getElementById(\"rad1\").addEventListener(\"change\", function () {    \
+            document.forms[\"CONFIG_FORM\"][\"net_ip\"].readOnly = false;   \
+            document.forms[\"CONFIG_FORM\"][\"net_subnet\"].readOnly = false;   \
+            document.forms[\"CONFIG_FORM\"][\"net_gateway\"].readOnly = false;  \
+        }); \
+        document.getElementById(\"rad2\").addEventListener(\"change\", function () {    \
+            document.forms[\"CONFIG_FORM\"][\"net_ip\"].readOnly = true;    \
+            document.forms[\"CONFIG_FORM\"][\"net_subnet\"].readOnly = true;    \
+            document.forms[\"CONFIG_FORM\"][\"net_gateway\"].readOnly = true;   \
+        }); \
+        document.getElementById(\"id_dateFormat\").addEventListener(\"focus\", function () {    \
+            preFormat = this.value; \
+        }); \
+        document.getElementById(\"id_dateFormat\").addEventListener(\"change\", function () {   \
+            curFormat = this.value; \
+            changeDateFormat(preFormat, curFormat); \
+            preFormat = this.value; \
+        }); \
+        document.getElementById(\"id_curTime\").addEventListener(\"focus\", function () {   \
+            clearTimeout(secTimeInc);   \
+        }); \
+        initDate(); \
+        setTimeout(updateDate, 1000);   \
+        </script>");
     }
 
     return ret;
@@ -521,6 +614,25 @@ svconf_load_config ()
 // }
 
 /* Private function bodies -----------------------------------------------------------------------*/
+
+static void
+select_timezone (char * selected)
+{
+    int temp = 24; // +7
+    int i = 0;
+
+    for (i = 0; i < 31; i++)
+    {
+        temp = atoi(selected);
+
+        if (temp == i)
+            printf("<option value=\"%d\" selected=\"selected\">%s</option>", i, g_tz_list[i]);
+        else
+            printf("<option value=\"%d\">%s</option>", i, g_tz_list[i]);
+    }
+
+    return ;
+}
 
 static void
 resolution_to_wh (char * resolution, int res_len, char * width, char * height)
@@ -670,10 +782,18 @@ save_setting (svconfig_t config, char * filename)
                     break;
 
                     case 16:
-                        replace_config_value(cfline, replace_length, config.date_current, strlen(config.date_current));
+                        replace_config_value(cfline, replace_length, config.date_current_1, strlen(config.date_current_1));
                     break;
 
                     case 17:
+                        replace_config_value(cfline, replace_length, config.date_current_2, strlen(config.date_current_2));
+                    break;
+
+                    case 18:
+                        replace_config_value(cfline, replace_length, config.date_current_3, strlen(config.date_current_3));
+                    break;
+
+                    case 19:
                         replace_config_value(cfline, replace_length, config.date_time, strlen(config.date_time));
                     break;
 
@@ -791,10 +911,18 @@ load_setting (svconfig_t * p_config, char * filename)
                     break;
 
                     case 16:
-                        memcpy(p_config->date_current, cfline, copy_length);
+                        memcpy(p_config->date_current_1, cfline, copy_length);
                     break;
 
                     case 17:
+                        memcpy(p_config->date_current_2, cfline, copy_length);
+                    break;
+
+                    case 18:
+                        memcpy(p_config->date_current_3, cfline, copy_length);
+                    break;
+
+                    case 19:
                         memcpy(p_config->date_time, cfline, copy_length);
                     break;
 

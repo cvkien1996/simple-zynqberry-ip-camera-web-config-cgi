@@ -1,6 +1,6 @@
 /**
   **************************************************************************************************
-  * @file   sv_main.c
+  * @file   sv_login.c
   * @author Chung Vinh Kien
   **************************************************************************************************
   *
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "sv_main.h"
+#include "sv_login.h"
 #include "svvars.h"
 #include "../htmlgen/htmlgen.h"
 #include "svcgi.h"
@@ -37,30 +37,30 @@
 int
 main (int argc, char ** argv) 
 {
-	char ** postvars 	= NULL; /* POST request data repository */
-	char ** getvars 	= NULL; /* GET request data repository */
-	char form_method	= 0; 	/* POST = 1, GET = 0 */  
-	
-	/* get request method: GET or POST */
-	form_method = svvars_getRequestMethod();
+    char ** postvars    = NULL; /* POST request data repository */
+    char ** getvars     = NULL; /* GET request data repository */
+    char form_method    = 0;    /* POST = 1, GET = 0 */  
+    
+    /* get request method: GET or POST */
+    form_method = svvars_getRequestMethod();
 
-	if (form_method == POST) 
-	{
-		//getvars = svvars_getGETvars();
-		postvars = svvars_getPOSTvars();
-	}
+    if (form_method == POST) 
+    {
+        //getvars = svvars_getGETvars();
+        postvars = svvars_getPOSTvars();
+    }
     else if (form_method == GET)
     {
 
     }
-	// else if(form_method == GET) 
-	// {
-	// 	getvars = svvars_getGETvars();
-	// }
-	// else
-	// {
-	// 	// error
-	// }
+    // else if(form_method == GET) 
+    // {
+    //  getvars = svvars_getGETvars();
+    // }
+    // else
+    // {
+    //  // error
+    // }
 
     if (1 == svconf_action(postvars, form_method))
     {
@@ -78,15 +78,12 @@ main (int argc, char ** argv)
 
         /* add script */
         htmlScriptAdder(CFG_JS_SCRIPT_1);
-        htmlScriptAdder(CFG_JS_SCRIPT_2);
+        //htmlScriptAdder(CFG_JS_SCRIPT_2);
 
         /* body */
-        htmlBody();
-
+        //htmlBody();
+        printf("</HEAD>\n<BODY onload = \"focusUsername();\">\n");
         /* process and save config */
-        
-
-        
 
         //printf("<h1>DEBUG LOG</h1>");
 
@@ -111,7 +108,7 @@ main (int argc, char ** argv)
         /* footer */
         htmlFooter();
     }
-	else if (POST == form_method)
+    else if (POST == form_method)
     {
         printf("HTTP/1.0 303 See Other\r\n");
         printf("Location: %s\r\n\r\n", argv[0]);
@@ -119,12 +116,12 @@ main (int argc, char ** argv)
         
     }
 
-	/* cleanup */
-	svvars_cleanUp(form_method, getvars, postvars);
+    /* cleanup */
+    svvars_cleanUp(form_method, getvars, postvars);
 
-	fflush(stdout);
-	exit(0);
-	return 0;
+    fflush(stdout);
+    exit(0);
+    return 0;
 }
 
 /* Private function bodies -----------------------------------------------------------------------*/
